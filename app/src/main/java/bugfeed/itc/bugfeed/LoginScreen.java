@@ -3,6 +3,7 @@ package bugfeed.itc.bugfeed;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -16,6 +17,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginScreen extends Activity implements View.OnClickListener {
 
@@ -24,12 +30,15 @@ public class LoginScreen extends Activity implements View.OnClickListener {
     private Button bLogin;
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabase=FirebaseDatabase.getInstance();
         etEmail = (EditText) findViewById(R.id.etEmail);
         etPassword = (EditText) findViewById(R.id.etPassword);
         bLogin = (Button) findViewById(R.id.bLogin);
@@ -40,7 +49,7 @@ public class LoginScreen extends Activity implements View.OnClickListener {
     }
     private  void userlogin(){
 
-        String Email=etEmail.getText().toString().trim();
+        final String Email=etEmail.getText().toString().trim();
         String Password=etPassword.getText().toString().trim();
 
         if (TextUtils.isEmpty(Email)) {
@@ -53,6 +62,44 @@ public class LoginScreen extends Activity implements View.OnClickListener {
             Toast.makeText(this, "Please Enter Password", Toast.LENGTH_SHORT).show();
             return;
         }
+        databaseReference=firebaseDatabase.getReference().child("Users");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot dataSnapshot1:dataSnapshot.getChildren()){
+
+                    String email=dataSnapshot1.child("email").getValue().toString();
+                    if(email.equals(Email)){
+
+                        String type=dataSnapshot1.child("Type").getValue().toString();
+                        if(type.equals("Developer")){
+
+                            Toast.makeText(LoginScreen.this, "Successfully Logged in", Toast.LENGTH_SHORT).show();
+                            Intent intent=new Intent(getApplicationContext(),DeveloperProfileActivity.class);
+                            startActivity(intent);
+                        }
+                        else if(type.equals("User")){
+
+                            Toast.makeText(LoginScreen.this, "Successfully Logged in", Toast.LENGTH_SHORT).show();
+                            Intent intent=new Intent(getApplicationContext(),UserProfileActivity.class);
+                            startActivity(intent);
+
+                        }
+
+                    }
+
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
         progressDialog.setMessage("Please Wait.....");
         progressDialog.show();
         firebaseAuth.signInWithEmailAndPassword(Email,Password)
@@ -63,7 +110,7 @@ public class LoginScreen extends Activity implements View.OnClickListener {
                         if(task.isSuccessful()){
 
                             finish();
-                            //startActivity(new Intent(getApplicationContext(),UserAreaActivity.class));
+                            //startActivity(new Intent(LoginScreen.this,DeveloperProfileActivity.class));
                         }
                     }
                 });
