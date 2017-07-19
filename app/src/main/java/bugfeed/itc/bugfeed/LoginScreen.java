@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -23,7 +22,6 @@ public class LoginScreen extends Activity implements View.OnClickListener {
     private EditText etEmail;
     private EditText etPassword;
     private Button bLogin;
-    private TextView registerLink;
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
 
@@ -35,10 +33,8 @@ public class LoginScreen extends Activity implements View.OnClickListener {
         etEmail = (EditText) findViewById(R.id.etEmail);
         etPassword = (EditText) findViewById(R.id.etPassword);
         bLogin = (Button) findViewById(R.id.bLogin);
-        registerLink = (TextView) findViewById(R.id.tvRegisterHere);
         progressDialog = new ProgressDialog(this);
         bLogin.setOnClickListener(this);
-        registerLink.setOnClickListener(this);
 
 
     }
@@ -80,13 +76,15 @@ public class LoginScreen extends Activity implements View.OnClickListener {
 
             userlogin();
         }
-        else if(v==registerLink){
 
-            finish();
-            startActivity(new Intent(this,RegisterDeveloperScreen.class));
-        }
 
     }
 
 
+    public void register(View view) {
+
+
+        Intent intent=new Intent(LoginScreen.this,RegisterScreen.class);
+        startActivity(intent);
+    }
 }

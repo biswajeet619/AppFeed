@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="bugfeed.itc.bugfeed.RegisterDeveloperScreen"
+    tools:context="bugfeed.itc.bugfeed.RegisterScreen"
     android:orientation="vertical">
 
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/Devname"
+        android:id="@+id/name"
         android:inputType="textPersonName"
         android:hint="Name"
         />
@@ -21,7 +21,7 @@
         android:layout_marginTop="10dp"
         android:inputType="textEmailAddress"
         android:hint="Email"
-        android:id="@+id/DevEmail"
+        android:id="@+id/Email"
         />
     <EditText
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
         android:inputType="phone"
         android:layout_marginTop="10dp"
         android:hint="Phone"
-        android:id="@+id/DevPhone"
+        android:id="@+id/Phone"
         />
 
     <android.support.design.widget.TextInputLayout
@@ -46,6 +46,37 @@
             android:hint="Password"
             android:inputType="textPassword"/>
     </android.support.design.widget.TextInputLayout>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:id="@+id/usertypeRadio"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Developer"
+            android:id="@+id/radioDev"
+            />
+        <RadioButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="User"
+            android:layout_weight="1"
+            android:id="@+id/radioUser"
+
+            />
+    </RadioGroup>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/RegisterButton"
+        android:text="REGISTER"
+        />
 
 
 </LinearLayout>
