@@ -48,10 +48,12 @@ public class DeveloperProfileActivity extends AppCompatActivity
                     if(dbemail.equals(email)){
 
 
-                        DeveloperApps developerApps=new DeveloperApps();
-                        developerApps=dataSnapshot1.getValue(DeveloperApps.class);
-                        developerAppses.add(developerApps);
-                       return;
+                        for(DataSnapshot snapshot:dataSnapshot1.getChildren()) {
+
+                            DeveloperApps developerApps = new DeveloperApps();
+                            developerApps.appdesc=snapshot.child("App Description").getValue().toString();
+                            developerAppses.add(developerApps);
+                        }
 
                     }
 
