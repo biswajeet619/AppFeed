@@ -1,5 +1,6 @@
 package bugfeed.itc.bugfeed;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,13 +14,60 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
 public class DeveloperProfileActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
+    public String email;
+    public ArrayList<DeveloperApps>developerAppses;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_developer_profile);
+        firebaseDatabase=FirebaseDatabase.getInstance();
+        databaseReference=firebaseDatabase.getReference().child("Users");
+        Bundle bundle = getIntent().getExtras();
+        email = bundle.getString("email");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot dataSnapshot1:dataSnapshot.getChildren()){
+
+                    String dbemail=dataSnapshot1.child("email").getValue().toString();
+                    if(dbemail.equals(email)){
+
+
+                        DeveloperApps developerApps=new DeveloperApps();
+                        developerApps=dataSnapshot1.getValue(DeveloperApps.class);
+                        developerAppses.add(developerApps);
+                       return;
+
+                    }
+
+                }
+
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -80,17 +128,17 @@ public class DeveloperProfileActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.addapps) {
 
-        } else if (id == R.id.nav_slideshow) {
+            Bundle bundle = getIntent().getExtras();
+            String email = bundle.getString("email");
+            Intent intent=new Intent(DeveloperProfileActivity.this,AddApps.class);
+            intent.putExtra("email",email);
+            startActivity(intent);
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.issuesfeedback) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.devlogout) {
 
         }
 

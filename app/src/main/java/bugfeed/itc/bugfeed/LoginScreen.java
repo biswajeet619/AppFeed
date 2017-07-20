@@ -77,12 +77,14 @@ public class LoginScreen extends Activity implements View.OnClickListener {
 
                             Toast.makeText(LoginScreen.this, "Successfully Logged in", Toast.LENGTH_SHORT).show();
                             Intent intent=new Intent(getApplicationContext(),DeveloperProfileActivity.class);
+                            intent.putExtra("email",Email);
                             startActivity(intent);
                         }
                         else if(type.equals("User")){
 
                             Toast.makeText(LoginScreen.this, "Successfully Logged in", Toast.LENGTH_SHORT).show();
                             Intent intent=new Intent(getApplicationContext(),UserProfileActivity.class);
+                            intent.putExtra("email",Email);
                             startActivity(intent);
 
                         }

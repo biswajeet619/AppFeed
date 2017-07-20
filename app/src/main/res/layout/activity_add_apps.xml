@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="bugfeed.itc.bugfeed.AddApps">
+    
+    
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/appname"
+        android:hint="Enter App Name"
+        />
+    <EditText
+        android:inputType="textMultiLine"
+        android:lines="8"
+        android:minLines="6"
+        android:gravity="top|left"
+        android:maxLines="10"
+        android:layout_height="wrap_content"
+        android:id="@+id/appdesc"
+        android:layout_width="fill_parent"
+        android:scrollbars="vertical"
+        android:hint="Description of Application"
+    />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/applink"
+        android:hint="Enter the link to your App"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add APP"
+        android:onClick="addapplication"
+        android:id="@+id/appapp"
+        android:layout_marginTop="10dp"/>
+
+</LinearLayout>
