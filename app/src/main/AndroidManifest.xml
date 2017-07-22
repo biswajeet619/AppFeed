@@ -36,7 +36,7 @@
                 android:value="bugfeed.itc.bugfeed.LoginScreen" />
         </activity>
         <activity android:name=".AddApps" />
-        <activity android:name=".ForgotPassword"></activity>
+        <activity android:name=".ForgotPasswordActivity"></activity>
     </application>
 
 </manifest>

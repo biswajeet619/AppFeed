@@ -3,12 +3,14 @@ package bugfeed.itc.bugfeed;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,7 +37,6 @@ public class LoginScreen extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
-        setTitle("Login");
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase=FirebaseDatabase.getInstance();
         etEmail = (EditText) findViewById(R.id.etEmail);
@@ -74,16 +75,24 @@ public class LoginScreen extends Activity implements View.OnClickListener {
                         String type=dataSnapshot1.child("Type").getValue().toString();
                         if(type.equals("Developer")){
 
-                           openuseracc("Developer",email);
+                            Toast.makeText(LoginScreen.this, "Successfully Logged in", Toast.LENGTH_SHORT).show();
+                            Intent intent=new Intent(getApplicationContext(),DeveloperProfileActivity.class);
+                            intent.putExtra("email",Email);
+                            startActivity(intent);
                         }
                         else if(type.equals("User")){
 
-                            openuseracc("User",email);
+                            Toast.makeText(LoginScreen.this, "Successfully Logged in", Toast.LENGTH_SHORT).show();
+                            Intent intent=new Intent(getApplicationContext(),UserProfileActivity.class);
+                            intent.putExtra("email",Email);
+                            startActivity(intent);
+
                         }
 
                     }
 
                 }
+
 
             }
 
@@ -100,7 +109,11 @@ public class LoginScreen extends Activity implements View.OnClickListener {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressDialog.dismiss();
+                        if(task.isSuccessful()){
 
+                            finish();
+                            //startActivity(new Intent(LoginScreen.this,DeveloperProfileActivity.class));
+                        }
                     }
                 });
     }
@@ -123,35 +136,9 @@ public class LoginScreen extends Activity implements View.OnClickListener {
         Intent intent=new Intent(LoginScreen.this,RegisterScreen.class);
         startActivity(intent);
     }
-    public void openuseracc(String type,String Email){
-
-
-        if(type.equals("Developer")){
-
-            Toast.makeText(LoginScreen.this, "Successfully Logged in", Toast.LENGTH_SHORT).show();
-            Intent intent=new Intent(getApplicationContext(),DeveloperProfileActivity.class);
-            intent.putExtra("email",Email);
-            startActivity(intent);
-            finish();
-
-        }
-        else if(type.equals("User")){
-
-            Toast.makeText(LoginScreen.this, "Successfully Logged in", Toast.LENGTH_SHORT).show();
-            Intent intent=new Intent(getApplicationContext(),UserProfileActivity.class);
-            intent.putExtra("email",Email);
-            startActivity(intent);
-            finish();
-
-        }
-
-
-    }
 
     public void forgotpass(View view) {
-
-            Intent intent=new Intent(LoginScreen.this,ForgotPassword.class);
-            startActivity(intent);
+        startActivity(new Intent(LoginScreen.this,ForgotPasswordActivity.class));
 
     }
 }
