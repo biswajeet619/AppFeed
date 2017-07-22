@@ -51,7 +51,7 @@ public class DeveloperProfileActivity extends AppCompatActivity
                         for(DataSnapshot snapshot:dataSnapshot1.getChildren()) {
 
                             DeveloperApps developerApps = new DeveloperApps();
-                            developerApps.appdesc=snapshot.child("App Description").getValue().toString();
+                            developerApps.appdesc=snapshot.child("Apps/").getValue().toString();
                             developerAppses.add(developerApps);
                         }
 
