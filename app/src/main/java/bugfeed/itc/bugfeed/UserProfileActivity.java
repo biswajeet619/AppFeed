@@ -13,9 +13,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 public class UserProfileActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+
+    private FirebaseAuth auth;
+    private TextView displayemail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +31,7 @@ public class UserProfileActivity extends AppCompatActivity
         setContentView(R.layout.activity_user_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        setTitle("Home");
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,6 +48,11 @@ public class UserProfileActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View header = navigationView.getHeaderView(0);
+        displayemail=(TextView)header.findViewById(R.id.displayemail);
+        Bundle bundle = getIntent().getExtras();
+        String email = bundle.getString("email");
+        displayemail.setText("Welcome \n"+email);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -88,6 +101,12 @@ public class UserProfileActivity extends AppCompatActivity
         } else if (id == R.id.listofDevs) {
 
         } else if (id == R.id.userlogout) {
+
+            auth= FirebaseAuth.getInstance();
+            auth.signOut();
+            Toast.makeText(this, "Successfully Logged out", Toast.LENGTH_SHORT).show();
+            Intent intent=new Intent(UserProfileActivity.this,LoginScreen.class);
+            startActivity(intent);
 
         }
 

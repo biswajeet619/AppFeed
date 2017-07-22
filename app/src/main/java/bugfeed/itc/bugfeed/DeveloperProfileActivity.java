@@ -13,7 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,6 +29,7 @@ public class DeveloperProfileActivity extends AppCompatActivity
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
+    private FirebaseAuth auth;
     public String email;
     public ArrayList<DeveloperApps>developerAppses;
 
@@ -34,6 +37,7 @@ public class DeveloperProfileActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_developer_profile);
+        setTitle("Home");
         firebaseDatabase=FirebaseDatabase.getInstance();
         databaseReference=firebaseDatabase.getReference().child("Users");
         Bundle bundle = getIntent().getExtras();
@@ -50,9 +54,7 @@ public class DeveloperProfileActivity extends AppCompatActivity
 
                         for(DataSnapshot snapshot:dataSnapshot1.getChildren()) {
 
-                            DeveloperApps developerApps = new DeveloperApps();
-                            developerApps.appdesc=snapshot.child("Apps/").getValue().toString();
-                            developerAppses.add(developerApps);
+
                         }
 
                     }
@@ -141,6 +143,12 @@ public class DeveloperProfileActivity extends AppCompatActivity
         } else if (id == R.id.issuesfeedback) {
 
         } else if (id == R.id.devlogout) {
+
+            auth=FirebaseAuth.getInstance();
+            auth.signOut();
+            Toast.makeText(this, "Successfully Logged out", Toast.LENGTH_SHORT).show();
+            Intent intent=new Intent(DeveloperProfileActivity.this,LoginScreen.class);
+            startActivity(intent);
 
         }
 
