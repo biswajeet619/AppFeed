@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="bugfeed.itc.bugfeed.RegisterScreen"
+    android:background="@drawable/register_back"
     android:orientation="vertical">
 
 
@@ -75,6 +76,7 @@
         android:layout_marginTop="20dp"
         android:layout_height="wrap_content"
         android:id="@+id/RegisterButton"
+        android:background="@drawable/mybutton"
         android:text="REGISTER"
         />
 

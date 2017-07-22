@@ -136,4 +136,9 @@ public class LoginScreen extends Activity implements View.OnClickListener {
         Intent intent=new Intent(LoginScreen.this,RegisterScreen.class);
         startActivity(intent);
     }
+
+    public void forgotpass(View view) {
+        startActivity(new Intent(LoginScreen.this,ForgotPasswordActivity.class));
+
+    }
 }

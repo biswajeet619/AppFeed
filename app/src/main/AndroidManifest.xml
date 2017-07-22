@@ -35,7 +35,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="bugfeed.itc.bugfeed.LoginScreen" />
         </activity>
-        <activity android:name=".AddApps"></activity>
+        <activity android:name=".AddApps" />
+        <activity android:name=".ForgotPasswordActivity"></activity>
     </application>
 
 </manifest>
