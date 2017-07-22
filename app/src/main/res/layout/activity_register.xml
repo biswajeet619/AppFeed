@@ -77,6 +77,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/RegisterButton"
         android:background="@drawable/mybutton"
+        android:textColor="#fd5d07"
+        android:textStyle="bold"
         android:text="REGISTER"
         />
 
