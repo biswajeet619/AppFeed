@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/name"
+        android:textColorHint="#000"
         android:inputType="textPersonName"
         android:hint="Name"
         />
@@ -20,6 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:textColorHint="#000"
         android:inputType="textEmailAddress"
         android:hint="Email"
         android:id="@+id/Email"
@@ -28,6 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="phone"
+        android:textColorHint="#000"
         android:layout_marginTop="10dp"
         android:hint="Phone"
         android:id="@+id/Phone"
@@ -37,6 +40,7 @@
         android:id="@+id/etPasswordLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColorHint="#000"
         app:passwordToggleEnabled="true"
         >
 
@@ -45,6 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
+            android:textColorHint="#000"
             android:inputType="textPassword"/>
     </android.support.design.widget.TextInputLayout>
 
@@ -59,12 +64,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Developer"
+            android:textStyle="bold"
             android:id="@+id/radioDev"
             />
         <RadioButton
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="User"
+            android:textStyle="bold"
             android:layout_weight="1"
             android:id="@+id/radioUser"
 
@@ -77,6 +84,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/RegisterButton"
         android:background="@drawable/mybutton"
+        android:textColor="#fd5d07"
+        android:textStyle="bold"
         android:text="REGISTER"
         />
 

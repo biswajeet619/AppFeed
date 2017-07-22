@@ -1,5 +1,6 @@
 package bugfeed.itc.bugfeed;
 
+import android.app.AlertDialog;
 import android.provider.ContactsContract;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
@@ -105,6 +106,7 @@ public class RegisterScreen extends AppCompatActivity implements OnCheckedChange
             etpass.setError("Password Can't be Empty");
             return;
         }
+
         String id=databaseReference.push().getKey();
         DatabaseReference d =databaseReference.child(id);
         d.child("email").setValue(email);
@@ -113,10 +115,22 @@ public class RegisterScreen extends AppCompatActivity implements OnCheckedChange
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
-                if(task.isSuccessful()){
 
+                if (!task.isSuccessful()) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterScreen.this);
+                    String[] s = task.getException().getMessage().split(":");
+                    if (s.length == 1) {
+                        builder.setMessage(s[0]);
+                    } else {
+                        builder.setMessage(s[1]);
+                    }
 
-                    Toast.makeText(RegisterScreen.this, "Succesfully Regsitered as "+usertype, Toast.LENGTH_SHORT).show();
+                    builder.setPositiveButton("Close", null);
+                    builder.create().show();
+
+                } else{
+
+                        Toast.makeText(RegisterScreen.this, "Succesfully Regsitered as "+usertype, Toast.LENGTH_SHORT).show();
                 }
 
             }
