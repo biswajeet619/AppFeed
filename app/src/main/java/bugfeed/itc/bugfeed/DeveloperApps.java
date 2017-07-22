@@ -41,7 +41,7 @@ public class DeveloperApps {
 
     @Override
     public String toString() {
-        return this.appname + ". " + this.appdesc + " " + this.applink+" ";
+        return "APPNAME : "+this.appname + "\n" +"APP DESCRIPTION : "+ this.appdesc +"\n"+"APP LINK : " + this.applink;
     }
 }
 

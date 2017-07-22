@@ -2,9 +2,11 @@ package bugfeed.itc.bugfeed;
 
 import android.app.ListActivity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.TypedValue;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,8 +16,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,7 +38,7 @@ public class DeveloperProfileActivity extends AppCompatActivity
     private DatabaseReference databaseReference;
     private FirebaseAuth auth;
     public String email;
-    public ArrayList<DeveloperApps>developerAppses;
+    public ArrayList<DeveloperApps>developerAppses=new ArrayList<DeveloperApps>();
     private ListView listView;
 
     @Override
@@ -42,9 +46,10 @@ public class DeveloperProfileActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_developer_profile);
         setTitle("Home");
-        //listView=(ListView) findViewById(R.id.list)
+        listView=(ListView) findViewById(R.id.appsofdev);
         firebaseDatabase=FirebaseDatabase.getInstance();
         databaseReference=firebaseDatabase.getReference().child("Users");
+        databaseReference.keepSynced(true);
         Bundle bundle = getIntent().getExtras();
         email = bundle.getString("email");
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -65,6 +70,25 @@ public class DeveloperProfileActivity extends AppCompatActivity
                                 developerApps = dataSnapshot2.getValue(DeveloperApps.class);
                                 developerAppses.add(developerApps);
                             }
+                            ArrayAdapter<DeveloperApps> adapter = new ArrayAdapter<DeveloperApps>(getApplicationContext(),
+                                    android.R.layout.simple_list_item_1, developerAppses){
+                                @Override
+                                public View getView(int position, View convertView, ViewGroup parent){
+                                    /// Get the Item from ListView
+                                    View view = super.getView(position, convertView, parent);
+
+                                    TextView tv = (TextView) view.findViewById(android.R.id.text1);
+
+                                    // Set the text size 25 dip for ListView each item
+                                    tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP,25);
+                                    tv.setTextColor(Color.BLACK);
+
+                                    // Return the view
+                                    return view;
+                                }
+                            };
+
+                            listView.setAdapter(adapter);
                             return;
                         }
 
@@ -82,8 +106,6 @@ public class DeveloperProfileActivity extends AppCompatActivity
 
         });
 
-        ArrayAdapter<DeveloperApps> adapter = new ArrayAdapter<DeveloperApps>(this,
-                android.R.layout.simple_list_item_1, developerAppses);
 
 
 
