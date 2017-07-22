@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/back1"
     android:orientation="vertical"
     tools:context="bugfeed.itc.bugfeed.AddApps">
     
@@ -12,30 +13,39 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/appname"
+        android:elevation="15dp"
         android:hint="Enter App Name"
+        android:textColorHint="#000"
         />
     <EditText
         android:inputType="textMultiLine"
         android:lines="8"
         android:minLines="6"
+        android:textColorHint="#000"
         android:gravity="top|left"
         android:maxLines="10"
         android:layout_height="wrap_content"
         android:id="@+id/appdesc"
         android:layout_width="fill_parent"
         android:scrollbars="vertical"
+        android:elevation="15dp"
         android:hint="Description of Application"
     />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/applink"
+        android:textColorHint="#000"
         android:hint="Enter the link to your App"
         />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add APP"
+        android:background="@drawable/mybutton"
+        android:textColor="#f94e04"
+        android:elevation="15dp"
+        android:textStyle="bold"
         android:onClick="addapplication"
         android:id="@+id/appapp"
         android:layout_marginTop="10dp"/>
