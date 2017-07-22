@@ -80,8 +80,9 @@ public class AddApps extends AppCompatActivity {
 
         DatabaseReference dbref=firebaseDatabase.getReference().child("Users").child(key).child("APPS");
         DatabaseReference app=dbref.child(name);
-        app.child("App Name").setValue(name);
-        app.child("App Description").setValue(desc);
-        app.child("App Link").setValue(link);
+        app.child("appname").setValue(name);
+        app.child("appdesc").setValue(desc);
+        app.child("applink").setValue(link);
+        Toast.makeText(this, "App Added.", Toast.LENGTH_SHORT).show();
     }
 }

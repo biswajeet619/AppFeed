@@ -79,6 +79,7 @@ public class LoginScreen extends Activity implements View.OnClickListener {
                             Intent intent=new Intent(getApplicationContext(),DeveloperProfileActivity.class);
                             intent.putExtra("email",Email);
                             startActivity(intent);
+                            break;
                         }
                         else if(type.equals("User")){
 
@@ -86,6 +87,7 @@ public class LoginScreen extends Activity implements View.OnClickListener {
                             Intent intent=new Intent(getApplicationContext(),UserProfileActivity.class);
                             intent.putExtra("email",Email);
                             startActivity(intent);
+                            break;
 
                         }
 
@@ -109,11 +111,6 @@ public class LoginScreen extends Activity implements View.OnClickListener {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressDialog.dismiss();
-                        if(task.isSuccessful()){
-
-                            finish();
-                            //startActivity(new Intent(LoginScreen.this,DeveloperProfileActivity.class));
-                        }
                     }
                 });
     }

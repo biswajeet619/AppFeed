@@ -10,6 +10,11 @@ public class DeveloperApps {
     public  String appdesc;
     public String applink;
 
+    public DeveloperApps(){
+
+
+    }
+
     public String getAppname() {
         return appname;
     }
@@ -33,4 +38,10 @@ public class DeveloperApps {
     public void setApplink(String applink) {
         this.applink = applink;
     }
+
+    @Override
+    public String toString() {
+        return this.appname + ". " + this.appdesc + " " + this.applink+" ";
+    }
 }
+

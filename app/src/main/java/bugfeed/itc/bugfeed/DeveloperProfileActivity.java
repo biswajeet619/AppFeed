@@ -1,5 +1,6 @@
 package bugfeed.itc.bugfeed;
 
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,6 +14,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,12 +35,14 @@ public class DeveloperProfileActivity extends AppCompatActivity
     private FirebaseAuth auth;
     public String email;
     public ArrayList<DeveloperApps>developerAppses;
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_developer_profile);
         setTitle("Home");
+        //listView=(ListView) findViewById(R.id.list)
         firebaseDatabase=FirebaseDatabase.getInstance();
         databaseReference=firebaseDatabase.getReference().child("Users");
         Bundle bundle = getIntent().getExtras();
@@ -55,6 +60,12 @@ public class DeveloperProfileActivity extends AppCompatActivity
                         for(DataSnapshot snapshot:dataSnapshot1.getChildren()) {
 
 
+                            for (DataSnapshot dataSnapshot2 : snapshot.getChildren()) {
+                                DeveloperApps developerApps = new DeveloperApps();
+                                developerApps = dataSnapshot2.getValue(DeveloperApps.class);
+                                developerAppses.add(developerApps);
+                            }
+                            return;
                         }
 
                     }
@@ -70,6 +81,10 @@ public class DeveloperProfileActivity extends AppCompatActivity
             }
 
         });
+
+        ArrayAdapter<DeveloperApps> adapter = new ArrayAdapter<DeveloperApps>(this,
+                android.R.layout.simple_list_item_1, developerAppses);
+
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
