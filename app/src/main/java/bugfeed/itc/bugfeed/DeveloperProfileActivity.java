@@ -40,6 +40,7 @@ public class DeveloperProfileActivity extends AppCompatActivity
     public String email;
     public ArrayList<DeveloperApps>developerAppses=new ArrayList<DeveloperApps>();
     private ListView listView;
+    private TextView displayemail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,6 +134,9 @@ public class DeveloperProfileActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View header = navigationView.getHeaderView(0);
+        displayemail=(TextView) header.findViewById(R.id.devEmail);
+        displayemail.setText("Welcome \n" + email);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
