@@ -59,39 +59,44 @@ public class DeveloperProfileActivity extends AppCompatActivity
                 for(DataSnapshot dataSnapshot1:dataSnapshot.getChildren()){
 
                     String dbemail=dataSnapshot1.child("email").getValue().toString();
-                    if(dbemail.equals(email)){
+                    if(dbemail.equals(email)) {
+
+                        String type=dataSnapshot1.child("Type").getValue().toString();
+                        if (("User").equals(type)) {
+
+                        } else if (("Developer").equals(type)) {
+
+                            for (DataSnapshot snapshot : dataSnapshot1.getChildren()) {
 
 
-                        for(DataSnapshot snapshot:dataSnapshot1.getChildren()) {
-
-
-                            for (DataSnapshot dataSnapshot2 : snapshot.getChildren()) {
-                                DeveloperApps developerApps = new DeveloperApps();
-                                developerApps = dataSnapshot2.getValue(DeveloperApps.class);
-                                developerAppses.add(developerApps);
-                            }
-                            ArrayAdapter<DeveloperApps> adapter = new ArrayAdapter<DeveloperApps>(getApplicationContext(),
-                                    android.R.layout.simple_list_item_1, developerAppses){
-                                @Override
-                                public View getView(int position, View convertView, ViewGroup parent){
-                                    /// Get the Item from ListView
-                                    View view = super.getView(position, convertView, parent);
-
-                                    TextView tv = (TextView) view.findViewById(android.R.id.text1);
-
-                                    // Set the text size 25 dip for ListView each item
-                                    tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP,25);
-                                    tv.setTextColor(Color.BLACK);
-
-                                    // Return the view
-                                    return view;
+                                for (DataSnapshot dataSnapshot2 : snapshot.getChildren()) {
+                                    DeveloperApps developerApps = new DeveloperApps();
+                                    developerApps = dataSnapshot2.getValue(DeveloperApps.class);
+                                    developerAppses.add(developerApps);
                                 }
-                            };
+                                ArrayAdapter<DeveloperApps> adapter = new ArrayAdapter<DeveloperApps>(getApplicationContext(),
+                                        android.R.layout.simple_list_item_1, developerAppses) {
+                                    @Override
+                                    public View getView(int position, View convertView, ViewGroup parent) {
+                                        /// Get the Item from ListView
+                                        View view = super.getView(position, convertView, parent);
 
-                            listView.setAdapter(adapter);
-                            return;
+                                        TextView tv = (TextView) view.findViewById(android.R.id.text1);
+
+                                        // Set the text size 25 dip for ListView each item
+                                        tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 25);
+                                        tv.setTextColor(Color.BLACK);
+
+                                        // Return the view
+                                        return view;
+                                    }
+                                };
+
+                                listView.setAdapter(adapter);
+                                return;
+                            }
+
                         }
-
                     }
 
                 }

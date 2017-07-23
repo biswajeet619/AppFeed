@@ -37,6 +37,10 @@
         </activity>
         <activity android:name=".AddApps" />
         <activity android:name=".ForgotPasswordActivity" />
+        <activity
+            android:name=".UserComplaintActivity"
+            android:label="@string/title_activity_user_complaint"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

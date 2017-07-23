@@ -19,6 +19,7 @@ public class ForgotPasswordActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
         EmailAdEditText =(EditText)findViewById(R.id.EmailAd);
+
     }
 
     public void resend(View view) {
