@@ -117,6 +117,10 @@ public class UserProfileActivity extends AppCompatActivity
 
         if (id == R.id.reviewstatus) {
 
+            Intent intent=new Intent(UserProfileActivity.this,UserComplaintActivity.class);
+            intent.putExtra("email",email);
+            startActivity(intent);
+
 
             // Handle the camera action
         } else if (id == R.id.listofDevs) {
